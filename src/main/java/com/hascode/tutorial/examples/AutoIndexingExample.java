@@ -10,6 +10,8 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
+import org.neo4j.graphdb.index.AutoIndexer;
+import org.neo4j.graphdb.index.IndexHits;
 
 import com.hascode.tutorial.label.CustomLabels;
 import com.hascode.tutorial.relation.CustomRelations;
@@ -45,6 +47,10 @@ public class AutoIndexingExample {
 			ExecutionResult result2 = engine.execute(cql2);
 			System.out.println(result2.dumpToString());
 			tx.success();
+
+			AutoIndexer<Node> autoIndexer = db.index().getNodeAutoIndexer();
+			IndexHits<Node> alBundy = autoIndexer.getAutoIndex().get("name", "Al Bundy");
+			System.out.println("search from auto indexer returned: " + alBundy.getSingle().getProperty("name"));
 		}
 
 	}
