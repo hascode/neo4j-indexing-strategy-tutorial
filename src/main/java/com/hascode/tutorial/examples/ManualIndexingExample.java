@@ -17,7 +17,7 @@ import com.hascode.tutorial.relation.CustomRelations;
 
 public class ManualIndexingExample {
 	public static void main(final String[] args) throws IOException {
-		GraphDatabaseService db = new GraphDatabaseFactory().newEmbeddedDatabase(Files.createTempDirectory("neo4j").toString());
+		GraphDatabaseService db = new GraphDatabaseFactory().newEmbeddedDatabase(Files.createTempDirectory("graphdb-").toString());
 		try (Transaction tx = db.beginTx()) {
 			IndexManager indexManager = db.index();
 
@@ -33,7 +33,7 @@ public class ManualIndexingExample {
 			authorIndex.add(author, "name", "Al Bundy");
 
 			ExecutionEngine engine = new ExecutionEngine(db);
-			String cql = "start author=node:authors(name = 'Al Bundy') return author";
+			String cql = "START author=node:authors(name = 'Al Bundy') MATCH (author:AUTHOR)-[:HAS_WRITTEN]->(book:BOOK) RETURN author, book";
 			ExecutionResult result = engine.execute(cql);
 			System.out.println(result.dumpToString());
 			tx.success();
