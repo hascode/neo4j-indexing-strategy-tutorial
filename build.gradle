@@ -1,5 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin:'application'
+
+mainClassName = System.getProperty("mainClass")
 
 sourceCompatibility = 1.8
 version = '1.0.0'
@@ -15,16 +18,4 @@ repositories {
 
 dependencies {
     compile 'org.neo4j:neo4j:2.1.6'
-}
-
-test {
-    systemProperties 'property': 'value'
-}
-
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
-    }
 }
