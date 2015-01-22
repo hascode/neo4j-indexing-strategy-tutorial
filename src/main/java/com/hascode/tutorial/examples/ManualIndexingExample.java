@@ -44,12 +44,12 @@ public class ManualIndexingExample {
 
 			ExecutionEngine engine = new ExecutionEngine(db);
 			// query for books written by Al Bundy
-			String cql1 = "MATCH (author:AUTHOR{name : 'Al Bundy'})-[:HAS_WRITTEN]->(book:BOOK) RETURN author, book";
+			String cql1 = "START author=node:authors(name = 'Al Bundy') MATCH (author)-[:HAS_WRITTEN]->(book:BOOK) RETURN author, book";
 			ExecutionResult result1 = engine.execute(cql1);
 			System.out.println(result1.dumpToString());
 
 			// query for books written by Peggy Bundy
-			String cql2 = "MATCH (author:AUTHOR{name : 'Peggy Bundy'})-[:HAS_WRITTEN]->(book:BOOK) RETURN author, book";
+			String cql2 = "START author=node:authors(name = 'Peggy Bundy') MATCH (author)-[:HAS_WRITTEN]->(book:BOOK) RETURN author, book";
 			ExecutionResult result2 = engine.execute(cql2);
 			System.out.println(result2.dumpToString());
 			tx.success();
