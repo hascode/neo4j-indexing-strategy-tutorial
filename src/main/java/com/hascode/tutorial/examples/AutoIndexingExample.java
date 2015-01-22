@@ -48,6 +48,7 @@ public class AutoIndexingExample {
 			System.out.println(result2.dumpToString());
 			tx.success();
 
+			// query programmatically
 			AutoIndexer<Node> autoIndexer = db.index().getNodeAutoIndexer();
 			IndexHits<Node> alBundy = autoIndexer.getAutoIndex().get("name", "Al Bundy");
 			System.out.println("search from auto indexer returned: " + alBundy.getSingle().getProperty("name"));
